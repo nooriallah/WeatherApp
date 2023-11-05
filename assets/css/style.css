@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: #121212;
+}
+body .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+body .container .card {
+  min-width: 400px;
+  background: linear-gradient(45deg, darkgreen, darkblue);
+  padding: 2rem;
+  border-radius: 16px;
+  position: relative;
+}
+body .container .card .search_box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 10px 100px 1000px #fff;
+}
+body .container .card .search_box input {
+  flex-basis: 80%;
+  outline: none;
+  border: none;
+  text-indent: 10px;
+  font-size: 20px;
+}
+body .container .card .search_box button {
+  flex-basis: 18%;
+  padding: 1rem;
+  margin-left: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+body .container .card .search_box button img {
+  width: 50%;
+}
+body .container .card .contents {
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+body .container .card .contents.show {
+  height: auto;
+}
+body .container .card .weather_pic_container {
+  text-align: center;
+}
+body .container .card .temp_container {
+  text-align: center;
+  color: #fff;
+  padding: 1rem 0;
+}
+body .container .card .temp_container .temp {
+  font-size: 3rem;
+}
+body .container .card .temp_container .city_name {
+  font-size: 2rem;
+}
+body .container .card .card_bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin: 1rem 0;
+}
+body .container .card .card_bottom .col {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  column-gap: 10px;
+}
+body .container .card .card_bottom .col img {
+  flex-basis: 40%;
+  width: 100%;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  position: absolute;
+  top: 49%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  animation: rotate 1s linear infinite;
+  display: none;
+}
+
+.loader.show {
+  display: block;
+}
+
+.loader::before, .loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #FFF;
+  animation: prixClipFix 2s linear infinite;
+}
+
+.loader::after {
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #FF3D00;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  75%, 100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    align-items: start !important;
+  }
+  .card {
+    min-width: 350px !important;
+    padding: 3rem 10px !important;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <link rel="shortcut icon" href="assets/images/clouds.png" type="image/x-icon">
+
+        <title>Weather App</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="card">
+
+                <span class="loader"></span>
+
+                <div class="search_box">
+                    <input type="text" id="inpCityName" placeholder="City name">
+                    <button id="btnSearch"><img src="./assets/images/search.png" alt=""></button>
+                </div>
+                <div class="contents">
+
+                    <div class="weather_pic_container">
+                        <img class="weather_pic" src="./assets/images/clouds.png" alt="Weather pic" />
+                    </div>
+                    <div class="temp_container">
+                        <h1 class="temp">0°C</h1>
+                        <h2 class="city_name">....</h2>
+                    </div>
+                    <div class="card_bottom">
+                        <div class="col">
+                            <img src="./assets/images/humidity.png" alt="Pic">
+                            <div>
+                                <h4 class="humidity">0%</h4>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <img src="./assets/images/wind.png" alt="Pic">
+                            <div>
+                                <h4 class="wind">0 Km/h</h4>
+                                <p>Wind speed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+    <script>
+        let apiKey = "60ab790ec2ccd59e76e4f5b0f8a44961";
+        // let apiURL = "http://api.openweathermap.org/geo/1.0/direct?q=London&appid=" + apiKey;
+        let apiURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        console.log(apiURL);
+
+        async function fetchWeather(city) {
+
+            document.querySelector(".loader").classList.add("show")
+
+            let response = await fetch(apiURL + city + "&appid=" + apiKey);
+            let data = await response.json()
+
+            document.querySelector(".loader").classList.remove("show")
+
+
+            if (response.status === 404) {
+                alert("City Not found");
+                return;
+            }
+
+
+            document.querySelector(".temp").textContent = Math.round(data.main.temp) + "°C";
+            document.querySelector(".city_name").textContent = data.name;
+            document.querySelector(".humidity").textContent = data.main.humidity + "%";
+            document.querySelector(".wind").textContent = Math.round(data.wind.speed) + " Km/h";
+
+            let img = document.querySelector(".weather_pic");
+            console.log(data.weather[0].main);
+
+            if (data.weather[0].main == "Clouds") {
+                img.src = "./assets/images/clouds.png";
+            }
+            else if (data.weather[0].main == "Clear") {
+                img.src = "./assets/images/clear.png";
+            }
+            else if (data.weather[0].main == "Rain") {
+                img.src = "./assets/images/rain.png";
+            }
+            else if (data.weather[0].main == "Snow") {
+                img.src = "./assets/images/snow.png";
+            }
+            else if (data.weather[0].main == "Drizzle") {
+                img.src = "./assets/images/drizzle.png";
+            }
+
+
+        }
+
+        document.getElementById("btnSearch").addEventListener("click", () => {
+            let cityName = document.getElementById("inpCityName").value;
+            fetchWeather(cityName);
+
+        })
+
+    </script>
+
+</html>
